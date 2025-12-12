@@ -174,5 +174,21 @@ de_res_output['Parameter Table']
 
 NOTE: Lower and Upper CI estimates come from bootstrapping.
 
+11. Graph results:
+
+Results can now be graphed. To pull individual results from the output of `DE_Results`:
+```python
+de_res_output['time'] # Time
+
+de_res_output['Full ODE Solutions'][:, j] # Predicted values from full model parameter estimates
+                                          # j is the index for each individual ODE solution
+
+de_res_output['Lower CI: Fit'][:, j] # Lower bound of confidence interval for bootstrap fits
+                                     # j is the index for each individual ODE solution
+
+de_res_output['Upper CI: Fit'][:, j] # Upper bound of confidence interval for bootstrap fits
+                                     # j is the index for each individual ODE solution
+```
+NOTE: Order of outputs for each ODE in `DE_Results` matches the same order ODE equations are defined and returned in from ODE_model.
 
 
