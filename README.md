@@ -130,24 +130,37 @@ param_bounds = [parameter 1, parameter 2]
 ```python
 de_gen_output = DE_Generalized(['linear', 'log10'], # List of transforms to undo if parameters where transformed: 'Linear' -> unchanged
                                                     #                                                             'log10' -> undo log10 transformation of parameter
+
                                ODE_model, # ODE model defined earlier
+
                                [A_0, B_0], # Initial conditions for each ODE equation
                                            # NOTE: Order of initial conditions needs to match order of ODE equations in ODE_model
+
                                [your_obs[0], your_obs[1]], # Observed data pulled from observedData_pull: [0] -> pulls observed data for first variable
                                                            #                                              [1] -> pulls observed data for second variable
                                                            # NOTE: Order of observed variables needs to match order of ODE equations in ODE_model
+
                                [sample_t_A, sample_t_B], # Sample times pulled from timeseries_pull
                                                          # NOTE: If the sample time is the same for all variables, the same sample time output from timeseries_pull can be used mutliple times for as many variables as are observed
+
                                [unique_t_A, unique_t_B], # Unique times pulled from timeseries_pull
                                                          # NOTE: If the unique time is the same for all variables, the same unique time output from timeseries_pull can be used mutliple times for as many variables as are observed
+
                                param_bounds, # Parameter bounds defined above for DE to search for parameter estimates
+
                                n_boot=0, # Number of bootstraps to be performed
                                          # NOTE: Change 0 to the number of bootstraps to be performed if bootstrapping is wanted
+
                                rmsle_return=True, # Returns individual RMSLEs for each ODE equation
+
                                maxiter=10000, # Number of iterations DE works for
+
                                tol=1e-5, # Error tolerance
+
                                plot_cost_history=True, # Returns plots of the cost history for the full model (no bootstraps) and, if n_boot > 0, plot of cost history of bootstraps
+
                                show_usage-False, # Provides more detailed information on how to pull individual results from DE_Generalized
+
                                ODE_names=None) # Provides a way to attach ODE name to individual RMSLEs upon return
 ```
 NOTE: If there are multiple treatment groups, you need to run `DE_Generalized` for each treatment group, separately.
@@ -155,12 +168,19 @@ NOTE: If there are multiple treatment groups, you need to run `DE_Generalized` f
 9. Use `DE_Results` to get fitted line using estimated parameters, confidence intervals for parameters from bootstrapping, and confidence interval band from model fits from bootstrapping results:
 ```python
 de_res_output = DE_Results(de_gen_output,
+
                            ['linear', 'log10'],
+
                            [A_0, B_0],
+
                            [unique_t_A, unique_t_B],
+
                            ODE_model,
+
                            (2.5, 97.5) # Confidence interval
+
                            show_usage=False,
+
                            param_names=['parameter 1', 'parameter 2']) # List of parameter names to produce a labeled table with parameter estimates and confidence intervals
 ```
 10. View results:
